@@ -6,11 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
-        table,
-        td {
-            border: 1px solid black;
-            border-collapse: collapse;
-            font-size: larger;
+        .table-hover tbody tr:hover td {
+            background: rgba(56, 124, 252, 0.5);
         }
     </style>
 </head>
@@ -41,7 +38,15 @@
     }
 
     // Build the HTML table
-    echo '<table><tr><th>Pod Name</th><th>Position #</th><th>Routes</th></tr>';
+    echo '
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">Pod Name</th>
+                <th scope="col">Position #</th>
+                <th scope="col">Routes</th>
+            </tr>
+        </thead><tbody>';
     $current_pod = null;
     $current_position = null;
     while ($row = $result->fetch_assoc()) {
@@ -71,7 +76,7 @@
         // Display the position and routes in the same row
         echo '<tr><td>' . $innerRow['name'] . '</td><td>' . $row['position_id'] . '</td><td>' . $row['routes'] . '</td></tr>';
     }
-    echo '</table>';
+    echo '</tbody></table>';
 
     // Free the result set and close the database connection
     $result->free();

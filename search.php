@@ -8,7 +8,7 @@ $q = $_GET["q"];
 $host = "localhost"; // or your host name
 $username = "root";
 $password = "";
-$dbname = "test";
+$dbname = "TTCSupervisorSchedule";
 $conn = mysqli_connect($host, $username, $password, $dbname);
 
 // Check connection
@@ -18,31 +18,30 @@ if (!$conn) {
 
 $name = $q;
 // Retrieve the row that matches the name
-$sql = "SELECT * FROM supervisors WHERE name = '$name'";
+$sql = "SELECT * FROM supervisors WHERE name LIKE '%$name%';";
 $result = mysqli_query($conn, $sql);
 
 // Check if there are any rows returned
 
 if (mysqli_num_rows($result) > 0) {
-    echo "<table border='1'>
+    echo "<table class=table-hover table>
     <tr>
         <th>ID</th>
         <th>Name</th>
         <th>Phone Number</th>
     </tr>";
-    while($row=$result->fetch_assoc()){
-    // Create an HTML table to display the data
-   
-    // Output data of the first row
- 
-    echo "<tr>";
-    echo "<td>" . $row["id"] . "</td>";
-    echo "<td>" . $row["name"] . "</td>";
-    echo "<td>" . $row["phone_number"] . "</td>";
-    echo "</tr>";
-    
-} 
-echo "</table>";
+    while ($row = $result->fetch_assoc()) {
+        // Create an HTML table to display the data
+
+        // Output data of the first row
+
+        echo "<tr>";
+        echo "<td>" . $row["id"] . "</td>";
+        echo "<td>" . $row["name"] . "</td>";
+        echo "<td>" . $row["phone_number"] . "</td>";
+        echo "</tr>";
+    }
+    echo "</table>";
 } else {
     echo "No results found for name: " . $name;
 }
